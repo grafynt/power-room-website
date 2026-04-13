@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POWER ROOM — GBI SLCC Youth Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ─── CSS Variables ─── */
+    :root {
+      --orange:  #FF6B00;
+      --teal:    #00C8CC;
+      --yellow:  #FFE600;
+      --pink:    #FF3D9A;
+      --lime:    #A8FF3E;
+      --dark:    #0a0a0a;
+      --dark2:   #111111;
+      --dark3:   #1a1a1a;
+      --white:   #ffffff;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    /* ─── Utility ─── */
+    .bebas { font-family: 'Bebas Neue', sans-serif; }
+    .highlight-orange { color: var(--orange); }
+    .highlight-teal   { color: var(--teal); }
+    .highlight-yellow { color: var(--yellow); }
+    .highlight-pink   { color: var(--pink); }
+    .highlight-lime   { color: var(--lime); }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 6%;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,107,0,0.15);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .nav-logo-circle {
+      width: 44px; height: 44px; border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(255,107,0,0.5);
+    }
+    .nav-logo-circle img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+    }
+    .nav-logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 2px; color: #fff;
+    }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75); text-decoration: none;
+      font-size: 13px; font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange); color: #fff !important;
+      padding: 8px 20px; border-radius: 50px;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 20px rgba(255,107,0,0.35);
+      transition: transform .2s, box-shadow .2s !important;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 28px rgba(255,107,0,0.5) !important;
+      color: #fff !important;
+    }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: .3s; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 100px 6% 60px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/hero-bg.jpeg');
+      background-size: cover;
+      background-position: center 35%;
+      background-repeat: no-repeat;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, rgba(10,10,10,0.92) 45%, rgba(10,10,10,0.55) 100%),
+        linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.7) 100%);
+    }
+    /* decorative blobs */
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none;
+    }
+    .blob-1 { width: 400px; height: 400px; background: rgba(255,107,0,0.15); top: -100px; right: -80px; }
+    .blob-2 { width: 300px; height: 300px; background: rgba(0,200,204,0.1);  bottom: 0; left: -60px; }
+    .blob-3 { width: 200px; height: 200px; background: rgba(255,230,0,0.08); top: 30%; left: 55%; }
+
+    /* confetti shapes */
+    .shape {
+      position: absolute; pointer-events: none; opacity: 0.7;
+    }
+    .shape-star {
+      width: 32px; height: 32px;
+      background: var(--yellow);
+      clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+    }
+    .shape-circle { border-radius: 50%; }
+    .shape-squiggle { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 700px;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
+    }
+    .hero-badge {
+      background: rgba(255,107,0,0.15);
+      border: 1px solid rgba(255,107,0,0.4);
+      color: var(--orange);
+      font-size: 12px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px; border-radius: 50px;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 12vw, 130px);
+      line-height: 0.92;
+      letter-spacing: 3px;
+    }
+    .hero-title .line2 { color: var(--orange); }
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255,255,255,0.7);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+    .hero-sub strong { color: #fff; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+    .btn-primary {
+      background: var(--orange); color: #fff;
+      padding: 14px 32px; border-radius: 50px;
+      font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(255,107,0,0.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(255,107,0,0.55); }
+    .btn-ghost {
+      background: transparent; color: #fff;
+      padding: 14px 32px; border-radius: 50px;
+      border: 2px solid rgba(255,255,255,0.2);
+      font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-ghost:hover { border-color: var(--orange); background: rgba(255,107,0,0.08); }
+
+    .hero-stats {
+      display: flex; gap: 36px; margin-top: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-stat {}
+    .hero-stat .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px; letter-spacing: 2px; color: var(--orange);
+      line-height: 1;
+    }
+    .hero-stat .label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+      color: rgba(255,255,255,0.45); margin-top: 2px;
+    }
+
+    .hero-visual {
+      position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
+      z-index: 2;
+    }
+    .hero-logo-big {
+      width: clamp(220px, 28vw, 360px);
+      height: clamp(220px, 28vw, 360px);
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(255,107,0,0.55), 0 0 160px rgba(255,107,0,0.25);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+    .hero-logo-big img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 80px rgba(255,107,0,0.45), 0 0 160px rgba(255,107,0,0.2); }
+      50%       { box-shadow: 0 0 100px rgba(255,107,0,0.7), 0 0 200px rgba(255,107,0,0.3); }
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 100px 6%; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 0.95; letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .section-desc {
+      font-size: 16px; color: rgba(255,255,255,0.6);
+      max-width: 520px; line-height: 1.8;
+    }
+
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      background: var(--orange);
+      padding: 14px 0; overflow: hidden; white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-flex; gap: 0;
+      animation: ticker 20s linear infinite;
+    }
+    .ticker-track span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 3px; color: #fff;
+      padding: 0 32px;
+    }
+    .ticker-track span.dot { color: rgba(255,255,255,0.5); padding: 0 8px; font-size: 14px; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── YEAR'S THEME ─── */
+    #theme {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 120px 6%;
+    }
+    .theme-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/theme-bg.jpeg');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+    }
+    .theme-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,10,10,0.65) 0%, rgba(10,10,10,0.55) 40%, rgba(10,10,10,0.75) 100%),
+        linear-gradient(to right, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.4) 100%);
+    }
+    /* Decorative blobs */
+    .theme-blob {
+      position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+    }
+    .theme-blob-1 { width: 500px; height: 500px; background: rgba(255,107,0,0.07); top: -100px; left: -100px; }
+    .theme-blob-2 { width: 400px; height: 400px; background: rgba(0,200,204,0.06); bottom: -80px; right: -80px; }
+    .theme-blob-3 { width: 300px; height: 300px; background: rgba(255,230,0,0.04); top: 40%; left: 40%; }
+
+    /* Marquee line behind text */
+    .theme-marquee-line {
+      position: absolute; left: 0; right: 0;
+      overflow: hidden; white-space: nowrap;
+      pointer-events: none;
+    }
+    .theme-marquee-line.top { top: 120px; }
+    .theme-marquee-line.bottom { bottom: 120px; }
+    .theme-marquee-inner {
+      display: inline-flex; gap: 0;
+      animation: theme-marquee 30s linear infinite;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px; letter-spacing: 6px;
+      color: rgba(255,255,255,0.025);
+      text-transform: uppercase;
+    }
+    .theme-marquee-inner.rev { animation-direction: reverse; }
+    .theme-marquee-inner span { padding: 0 40px; }
+    @keyframes theme-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .theme-inner {
+      position: relative; z-index: 2;
+      max-width: 900px; width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 0;
+    }
+
+    /* ── Reveal animation base ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(48px);
+      transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .theme-eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--orange);
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+      transition-delay: 0s;
+    }
+    .theme-eyebrow::before, .theme-eyebrow::after {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--orange);
+      opacity: 0.5;
+    }
+
+    .theme-year-tag {
+      background: rgba(255,107,0,0.12);
+      border: 1px solid rgba(255,107,0,0.3);
+      color: var(--orange);
+      font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 50px;
+      margin-bottom: 36px;
+      transition-delay: 0.1s;
+    }
+
+    .theme-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(70px, 13vw, 160px);
+      line-height: 0.88;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+      transition-delay: 0.2s;
+    }
+    .theme-headline .th-line1 { display: block; color: #fff; }
+    .theme-headline .th-line2 {
+      display: block; color: var(--orange);
+      -webkit-text-stroke: 2px var(--orange);
+    }
+
+    .theme-divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--orange), transparent);
+      border-radius: 2px;
+      margin: 32px auto 32px;
+      transition-delay: 0.3s;
+    }
+
+    .theme-verse-strip {
+      font-size: clamp(13px, 1.8vw, 16px);
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 36px;
+      transition-delay: 0.35s;
+    }
+    .theme-verse-strip span { color: rgba(255,107,0,0.8); }
+
+    .theme-body {
+      font-size: clamp(15px, 1.8vw, 18px);
+      color: rgba(255,255,255,0.65);
+      line-height: 1.85;
+      max-width: 640px;
+      margin-bottom: 56px;
+      transition-delay: 0.45s;
+    }
+    .theme-body strong { color: #fff; }
+
+    /* Stat pills */
+    .theme-pills {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 52px;
+      transition-delay: 0.55s;
+    }
+    .theme-pill {
+      padding: 10px 22px; border-radius: 50px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .theme-pill .pi { color: var(--orange); }
+
+    /* Scroll cue */
+    .theme-scroll-cue {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      transition-delay: 0.65s;
+    }
+    .theme-scroll-cue span { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(255,107,0,0.7), transparent);
+      animation: scroll-drop 2s ease-in-out infinite;
+    }
+    @keyframes scroll-drop {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      position: relative; overflow: hidden;
+      padding: 100px 6%;
+    }
+    .about-section-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/about-bg.jpeg');
+      background-size: cover;
+      background-position: center 40%;
+      background-repeat: no-repeat;
+    }
+    .about-section-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, rgba(10,10,10,0.94) 50%, rgba(10,10,10,0.7) 100%),
+        linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.15) 50%, rgba(10,10,10,0.6) 100%);
+    }
+    .about-grid {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+
+    /* ── Photo collage ── */
+    .about-collage {
+      position: relative; height: 520px;
+    }
+    .collage-photo {
+      position: absolute; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+    }
+    .collage-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    /* thin orange frame accent */
+    .collage-photo::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 18px;
+      box-shadow: inset 0 0 0 1px rgba(255,107,0,0.2);
+      pointer-events: none;
+    }
+    /* Photo 1 — back-left, portrait, tilt left */
+    .cp-1 {
+      width: 220px; height: 290px;
+      left: 0; top: 20px;
+      transform: rotate(-5deg);
+      z-index: 1;
+    }
+    .cp-1:hover { transform: rotate(-2deg) scale(1.04); box-shadow: 0 32px 80px rgba(0,0,0,0.7); z-index: 10; }
+    /* Photo 2 — back-right, portrait, tilt right */
+    .cp-2 {
+      width: 200px; height: 265px;
+      right: 0; top: 0;
+      transform: rotate(4deg);
+      z-index: 2;
+    }
+    .cp-2:hover { transform: rotate(1deg) scale(1.04); box-shadow: 0 32px 80px rgba(0,0,0,0.7); z-index: 10; }
+    /* Photo 3 — front-left-bottom, overlapping cp-1 */
+    .cp-3 {
+      width: 210px; height: 270px;
+      left: 55px; bottom: 0;
+      transform: rotate(3deg);
+      z-index: 3;
+    }
+    .cp-3:hover { transform: rotate(0deg) scale(1.04); box-shadow: 0 32px 80px rgba(0,0,0,0.7); z-index: 10; }
+    /* Photo 4 — front-right-bottom, landscape, Sunday Service shot */
+    .cp-4 {
+      width: 240px; height: 180px;
+      right: 10px; bottom: 30px;
+      transform: rotate(-3deg);
+      z-index: 4;
+    }
+    .cp-4:hover { transform: rotate(-1deg) scale(1.04); box-shadow: 0 32px 80px rgba(0,0,0,0.7); z-index: 10; }
+
+    /* ── Story reveal ── */
+    .about-story { display: flex; flex-direction: column; gap: 0; }
+
+    .story-trigger {
+      display: flex; align-items: center; gap: 20px;
+      cursor: pointer; user-select: none;
+      margin-top: 32px;
+      width: fit-content;
+    }
+    .story-plus-btn {
+      width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(255,107,0,0.4);
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s, background 0.3s;
+      position: relative;
+    }
+    .story-plus-btn::before,
+    .story-plus-btn::after {
+      content: '';
+      position: absolute;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .story-plus-btn::before { width: 22px; height: 2px; }
+    .story-plus-btn::after  { width: 2px; height: 22px; }
+    .story-trigger:hover .story-plus-btn {
+      transform: scale(1.1);
+      box-shadow: 0 14px 48px rgba(255,107,0,0.55);
+    }
+    /* open state */
+    .story-trigger.open .story-plus-btn { background: rgba(255,107,0,0.15); border: 2px solid var(--orange); }
+    .story-trigger.open .story-plus-btn::before { transform: rotate(45deg); }
+    .story-trigger.open .story-plus-btn::after  { transform: rotate(45deg); }
+
+    .story-trigger-cue {
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .story-trigger-cue .cue-main {
+      font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.5px;
+    }
+    .story-trigger-cue .cue-sub {
+      font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* The text panel */
+    .story-panel {
+      max-height: 0; overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease;
+    }
+    .story-panel.open {
+      max-height: 900px;
+      opacity: 1;
+    }
+    .story-panel-inner {
+      padding-top: 32px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .story-p {
+      font-size: 15px; line-height: 1.9;
+      color: rgba(255,255,255,0.72);
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .story-panel.open .story-p { opacity: 1; transform: translateY(0); }
+    .story-panel.open .story-p:nth-child(1) { transition-delay: 0.15s; }
+    .story-panel.open .story-p:nth-child(2) { transition-delay: 0.28s; }
+    .story-panel.open .story-p:nth-child(3) { transition-delay: 0.41s; }
+    .story-panel.open .story-p:nth-child(4) { transition-delay: 0.54s; }
+    .story-panel.open .story-p:nth-child(5) { transition-delay: 0.67s; }
+    .story-p strong { color: #fff; font-weight: 700; }
+    .story-p .accent { color: var(--orange); font-weight: 600; }
+    .story-divider {
+      width: 40px; height: 2px;
+      background: linear-gradient(90deg, var(--orange), transparent);
+      border-radius: 2px; margin: 4px 0;
+      opacity: 0;
+      transition: opacity 0.4s ease 0.1s;
+    }
+    .story-panel.open .story-divider { opacity: 1; }
+
+    /* ─── SUNDAY SERVICE ─── */
+    #sunday {
+      background: var(--dark);
+      position: relative; overflow: hidden;
+    }
+    .sunday-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/sunday-bg.jpeg');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+    }
+    .sunday-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.82) 50%, rgba(10,10,10,0.92) 100%),
+        linear-gradient(to right, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.1) 50%, rgba(10,10,10,0.3) 100%);
+    }
+    .sunday-inner { position: relative; z-index: 2; }
+    .sunday-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 60px; }
+    .sunday-info-cards { display: flex; flex-direction: column; gap: 16px; }
+    .info-card {
+      display: flex; align-items: center; gap: 20px;
+      padding: 24px 28px; border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .info-card-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+    .info-card-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .info-card-value { font-size: 18px; font-weight: 700; }
+    .info-card-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+    .sunday-map-panel {
+      border-radius: 24px; overflow: hidden;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,107,0,0.15);
+      aspect-ratio: 4/3;
+      min-height: 340px;
+    }
+    .sunday-map-panel img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .sunday-map-panel:hover img { transform: scale(1.04); }
+    .sunday-map-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.6) 60%, transparent 100%);
+      padding: 28px 28px 24px;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+      flex-wrap: wrap;
+    }
+    .sunday-map-address { display: flex; flex-direction: column; gap: 4px; }
+    .sunday-map-address .pin-label {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); font-weight: 700;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .sunday-map-address .pin-label::before {
+      content: '📍'; font-size: 12px;
+    }
+    .sunday-map-address .pin-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px; letter-spacing: 2px; color: #fff; line-height: 1;
+    }
+    .sunday-map-address .pin-sub {
+      font-size: 12px; color: rgba(255,255,255,0.55);
+    }
+    .btn-white {
+      background: #fff; color: var(--orange);
+      padding: 10px 22px; border-radius: 50px;
+      font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      transition: transform .2s, box-shadow .2s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.45); }
+
+    /* ─── VALUES / GLEAM ─── */
+    #values {
+      background: var(--dark2);
+      padding: 100px 6%;
+    }
+    .values-inner {}
+
+    /* Big GLEAM title */
+    .gleam-hero {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+      margin-bottom: 64px;
+    }
+    .gleam-title-wrap {}
+    .gleam-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 14vw, 160px);
+      letter-spacing: 6px; line-height: 0.88;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.5) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gleam-sub {
+      font-size: 13px; color: rgba(255,255,255,0.4);
+      letter-spacing: 3px; text-transform: uppercase;
+      margin-top: 8px;
+    }
+    .gleam-sub span { color: var(--orange); }
+
+    /* 5-card grid */
+    .gleam-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .gleam-card {
+      border-radius: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 28px 20px 24px;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+      position: relative; overflow: hidden;
+      transition: border-color .3s, background .3s, transform .3s;
+    }
+    .gleam-card:hover {
+      border-color: var(--gc);
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-4px);
+    }
+    /* top color stripe */
+    .gleam-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--gc);
+      border-radius: 20px 20px 0 0;
+    }
+    /* ghost letter watermark */
+    .gleam-card::after {
+      content: attr(data-letter);
+      position: absolute; bottom: -10px; right: -4px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 120px; letter-spacing: 0;
+      color: var(--gc); opacity: 0.05;
+      pointer-events: none; line-height: 1;
+    }
+
+    .gleam-letter {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px; line-height: 1;
+      color: var(--gc);
+      margin-bottom: 2px;
+    }
+    .gleam-word {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 16px;
+    }
+
+    /* + toggle inside card */
+    .gleam-toggle {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; margin-top: auto;
+      transition: background .3s, border-color .3s, transform .3s;
+      position: relative; z-index: 1;
+    }
+    .gleam-toggle::before,
+    .gleam-toggle::after {
+      content: '';
+      position: absolute;
+      background: rgba(255,255,255,0.7);
+      border-radius: 2px;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), background 0.3s;
+    }
+    .gleam-toggle::before { width: 14px; height: 1.5px; }
+    .gleam-toggle::after  { width: 1.5px; height: 14px; }
+    .gleam-card:hover .gleam-toggle {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--gc);
+    }
+    .gleam-card:hover .gleam-toggle::before,
+    .gleam-card:hover .gleam-toggle::after { background: var(--gc); }
+    .gleam-toggle.open {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--gc);
+      transform: rotate(45deg);
+    }
+    .gleam-toggle.open::before,
+    .gleam-toggle.open::after { background: var(--gc); }
+
+    /* expanding text */
+    .gleam-expand {
+      max-height: 0; overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease;
+      width: 100%;
+    }
+    .gleam-expand.open {
+      max-height: 400px;
+      opacity: 1;
+    }
+    .gleam-expand-inner {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin-top: 16px;
+    }
+    .gleam-expand-inner p {
+      font-size: 13px; line-height: 1.8;
+      color: rgba(255,255,255,0.6);
+      text-align: left;
+    }
+    .gleam-expand-inner p strong { color: #fff; }
+
+    /* ─── GALLERY ─── */
+    #gallery {
+      position: relative; overflow: hidden;
+      background: var(--dark);
+    }
+    .gallery-section-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/gallery-bg.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .gallery-section-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.82) 40%, rgba(10,10,10,0.9) 100%);
+    }
+    .gallery-inner-wrap { position: relative; z-index: 2; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 240px);
+      gap: 12px; margin-top: 48px;
+    }
+    .gallery-item {
+      border-radius: 16px; overflow: hidden;
+      background: var(--dark3);
+      position: relative;
+      transition: transform .4s cubic-bezier(0.16,1,0.3,1), box-shadow .4s;
+    }
+    .gallery-item:hover { transform: scale(1.02); z-index: 2; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    .gallery-item.large { grid-column: span 2; grid-row: span 2; }
+    .gallery-inner {
+      width: 100%; height: 100%;
+      position: relative; overflow: hidden;
+    }
+    .gallery-inner img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .gallery-item:hover .gallery-inner img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+      opacity: 0; transition: opacity .35s;
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 2px; color: #fff;
+    }
+    /* always-visible label on large tile */
+    .gallery-item.large .gallery-overlay {
+      opacity: 1;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 45%);
+    }
+    .gallery-item.large .gallery-overlay-text { font-size: 32px; }
+
+    /* ─── TESTIMONIALS / VERSE ─── */
+    #verse {
+      background: var(--orange);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .verse-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%);
+    }
+    .verse-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+    .verse-icon { font-size: 60px; margin-bottom: 24px; opacity: 0.3; }
+    .verse-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.1; letter-spacing: 2px; color: #fff;
+      margin-bottom: 20px;
+    }
+    .verse-ref { font-size: 16px; color: rgba(255,255,255,0.8); font-weight: 600; }
+
+    /* ─── JOIN / CTA ─── */
+    #join {
+      background: var(--dark2);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .join-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/join-bg.jpeg');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+    }
+    .join-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.88) 100%);
+    }
+    .join-inner { position: relative; z-index: 2; }
+    .join-inner { max-width: 720px; margin: 0 auto; }
+    .join-inner .section-title { font-size: clamp(52px, 8vw, 100px); }
+    .join-inner .section-desc { margin: 0 auto 40px; text-align: center; }
+    .join-links {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .social-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 24px; border-radius: 50px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      font-size: 14px; font-weight: 600;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .social-link:hover {
+      background: rgba(255,107,0,0.1);
+      border-color: var(--orange); color: #fff;
+      transform: translateY(-2px);
+    }
+    .social-link .s-icon { font-size: 18px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #050505;
+      padding: 60px 6% 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 40px; margin-bottom: 48px;
+    }
+    .footer-brand {}
+    .footer-logo-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 0 16px rgba(255,107,0,0.4);
+    }
+    .footer-logo-circle img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .footer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px; letter-spacing: 3px; color: #fff; margin-bottom: 8px;
+    }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.4); }
+    .footer-links h4 {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: 16px;
+    }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      color: rgba(255,255,255,0.6); text-decoration: none;
+      font-size: 14px; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
+    .footer-bottom .heart { color: var(--orange); }
+
+    /* ─── Decorative shape bits for hero ─── */
+    .deco { position: absolute; pointer-events: none; }
+    .deco-1 {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--teal); top: 22%; left: 48%; opacity: 0.8;
+      animation: float1 4s ease-in-out infinite;
+    }
+    .deco-2 {
+      width: 14px; height: 14px;
+      background: var(--yellow);
+      clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+      top: 65%; left: 45%; opacity: 0.9;
+      animation: float2 5s ease-in-out infinite;
+    }
+    .deco-3 {
+      width: 28px; height: 28px; border-radius: 6px; transform: rotate(20deg);
+      background: var(--pink); top: 38%; left: 50%; opacity: 0.7;
+      animation: float1 6s ease-in-out infinite 1s;
+    }
+    .deco-4 {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--lime); top: 55%; left: 52%; opacity: 0.9;
+      animation: float2 3.5s ease-in-out infinite 0.5s;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(-18px) rotate(15deg); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      50%       { transform: translateY(-12px) rotate(-20deg) scale(1.1); }
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-collage { height: 380px; }
+      .cp-1 { width: 200px; height: 260px; }
+      .cp-2 { width: 180px; height: 230px; }
+      .cp-3 { width: 190px; height: 220px; }
+      .sunday-grid { grid-template-columns: 1fr; }
+      .gleam-grid { grid-template-columns: repeat(3, 1fr); }
+      .gleam-headline { font-size: clamp(60px, 12vw, 100px); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 200px); }
+      .gallery-item.large { grid-column: span 2; grid-row: span 1; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 14px 5%; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      section { padding: 72px 5%; }
+      .hero-stats { gap: 24px; }
+      .gleam-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .gallery-item, .gallery-item.large { grid-column: span 1; grid-row: span 1; height: 200px; }
+      .footer-top { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-circle"><img src="assets/logo.jpeg" alt="Power Room Logo" /></div>
+    <span class="nav-logo-text">POWER ROOM</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#theme">Theme</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#sunday">Sunday</a></li>
+    <li><a href="#values">Values</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#join" class="nav-cta">Join Us</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="deco deco-1"></div>
+  <div class="deco deco-2"></div>
+  <div class="deco deco-3"></div>
+  <div class="deco deco-4"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">&#10022; GBI SLCC Youth Community</div>
+    <h1 class="hero-title bebas">
+      POWER<br>
+      <span class="line2">ROOM</span>
+    </h1>
+    <p class="hero-sub">
+      We <strong>love Jesus &amp; people.</strong><br>
+      A community where young people encounter God,
+      grow together, and change the world around them.
+    </p>
+    <div class="hero-actions">
+      <a href="#sunday" class="btn-primary">Join Sunday Service</a>
+      <a href="#about" class="btn-ghost">Learn More</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">5.4K+</div>
+        <div class="label">Community</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">4 PM</div>
+        <div class="label">Every Sunday</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">5F</div>
+        <div class="label">OnePM Building</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-logo-big">
+      <img src="assets/logo.jpeg" alt="Power Room" />
+    </div>
+  </div>
+</section>
+
+<!-- ─── TICKER ─── -->
+<div class="ticker-wrap" role="marquee">
+  <div class="ticker-track">
+    <span>SUNDAY SERVICE</span><span class="dot">✦</span>
+    <span>POWER ROOM</span><span class="dot">✦</span>
+    <span>WE LOVE JESUS &amp; PEOPLE</span><span class="dot">✦</span>
+    <span>EVERY SUNDAY 4 PM</span><span class="dot">✦</span>
+    <span>GBI SLCC</span><span class="dot">✦</span>
+    <span>ONEPM BUILDING 5TH FLOOR</span><span class="dot">✦</span>
+    <span>YOUTH COMMUNITY</span><span class="dot">✦</span>
+    <span>SUNDAY SERVICE</span><span class="dot">✦</span>
+    <span>POWER ROOM</span><span class="dot">✦</span>
+    <span>WE LOVE JESUS &amp; PEOPLE</span><span class="dot">✦</span>
+    <span>EVERY SUNDAY 4 PM</span><span class="dot">✦</span>
+    <span>GBI SLCC</span><span class="dot">✦</span>
+    <span>ONEPM BUILDING 5TH FLOOR</span><span class="dot">✦</span>
+    <span>YOUTH COMMUNITY</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ─── YEAR'S THEME ─── -->
+<section id="theme">
+  <div class="theme-bg"></div>
+  <div class="theme-blob theme-blob-1"></div>
+  <div class="theme-blob theme-blob-2"></div>
+  <div class="theme-blob theme-blob-3"></div>
+
+  <!-- Ghost marquee lines -->
+  <div class="theme-marquee-line top" aria-hidden="true">
+    <div class="theme-marquee-inner">
+      <span>GRACE OVERFLOWING</span><span>•</span>
+      <span>GRACE OVERFLOWING</span><span>•</span>
+      <span>GRACE OVERFLOWING</span><span>•</span>
+      <span>GRACE OVERFLOWING</span><span>•</span>
+      <span>GRACE OVERFLOWING</span><span>•</span>
+      <span>GRACE OVERFLOWING</span><span>•</span>
+    </div>
+  </div>
+  <div class="theme-marquee-line bottom" aria-hidden="true">
+    <div class="theme-marquee-inner rev">
+      <span>2026 · POWER ROOM</span><span>•</span>
+      <span>2026 · POWER ROOM</span><span>•</span>
+      <span>2026 · POWER ROOM</span><span>•</span>
+      <span>2026 · POWER ROOM</span><span>•</span>
+      <span>2026 · POWER ROOM</span><span>•</span>
+      <span>2026 · POWER ROOM</span><span>•</span>
+    </div>
+  </div>
+
+  <div class="theme-inner">
+    <div class="theme-year-tag reveal">2026 · Power Room</div>
+
+    <div class="theme-eyebrow reveal">This Year's Theme</div>
+
+    <h2 class="theme-headline reveal">
+      <span class="th-line1">GRACE</span>
+      <span class="th-line2">OVERFLOWING</span>
+    </h2>
+
+    <div class="theme-divider reveal"></div>
+
+    <div class="theme-verse-strip reveal">
+      <span>"</span>And God is able to bless you abundantly, so that in all things at all times, having all that you need, you will abound in every good work.<span>"</span>
+      &nbsp;— 2 Corinthians 9:8
+    </div>
+
+    <p class="theme-body reveal">
+      This year, we step into a season marked by <strong>overflow</strong> — not just receiving grace,
+      but <strong>becoming a channel of it</strong>. When grace runs deep in our hearts,
+      it spills outward: into our friendships, our families, our city.
+      Power Room 2026 is a call to live so rooted in God's undeserved kindness that
+      it becomes the way we <strong>love, give, lead, and grow</strong> — together.
+    </p>
+
+    <div class="theme-pills reveal">
+      <div class="theme-pill"><span class="pi">✦</span> Deep Roots in Grace</div>
+      <div class="theme-pill"><span class="pi">✦</span> Generous Living</div>
+      <div class="theme-pill"><span class="pi">✦</span> Overflow to Others</div>
+      <div class="theme-pill"><span class="pi">✦</span> A Year of Abundance</div>
+    </div>
+
+    <div class="theme-scroll-cue reveal">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="about-section-bg"></div>
+
+  <div class="about-grid">
+
+    <!-- Photo collage -->
+    <div class="about-collage">
+      <div class="collage-photo cp-1">
+        <img src="assets/about-1.jpeg" alt="Power Room community" />
+      </div>
+      <div class="collage-photo cp-2">
+        <img src="assets/about-2.jpeg" alt="Power Room community" />
+      </div>
+      <div class="collage-photo cp-3">
+        <img src="assets/about-3.jpeg" alt="Power Room community" />
+      </div>
+      <div class="collage-photo cp-4">
+        <img src="assets/about-4.jpeg" alt="Power Room Sunday Service" />
+      </div>
+    </div>
+
+    <!-- Story content -->
+    <div class="about-story">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">MORE THAN<br><span class="highlight-orange">A COMMUNITY</span></h2>
+      <p class="section-desc" style="margin-bottom:0;">
+        We're a family. A home. A place where real life meets real faith.
+      </p>
+
+      <!-- + Trigger -->
+      <div class="story-trigger" id="storyToggle" role="button" aria-expanded="false" aria-controls="storyPanel" tabindex="0">
+        <div class="story-plus-btn" aria-hidden="true"></div>
+        <div class="story-trigger-cue">
+          <span class="cue-main">Read our story</span>
+          <span class="cue-sub">tap to open</span>
+        </div>
+      </div>
+
+      <!-- Expanding text panel -->
+      <div class="story-panel" id="storyPanel" aria-hidden="true">
+        <div class="story-panel-inner">
+          <div class="story-divider"></div>
+
+          <p class="story-p">
+            We are a <strong>youth community under GBI SLCC</strong>
+            <span class="accent"> @gbi.slcc</span> —
+            a home for young people who are learning to walk with God
+            in the middle of <strong>real life</strong>.
+          </p>
+
+          <p class="story-p">
+            We believe <strong>church is not just a place you go to,</strong>
+            but a family you grow with. We laugh together, we worship together,
+            we learn together, and most importantly —
+            <strong>we grow together.</strong>
+            We are not perfect, but we are committed to pursuing a perfect God,
+            <em>side by side.</em>
+          </p>
+
+          <p class="story-p">
+            Our heart is to see a generation
+            <strong>rooted in Christ,</strong>
+            <strong>confident in their identity,</strong>
+            and <strong>bold in their purpose.</strong>
+          </p>
+
+          <p class="story-p">
+            That's why we don't just gather on Sundays — we also have
+            <strong>small groups (HOST),</strong>
+            where we grow deeper, share honestly, pray for one another,
+            and build <strong>real friendships that last beyond Sunday.</strong>
+          </p>
+
+          <p class="story-p">
+            If you're looking for a community, a safe space,
+            or simply <strong>a place to start again</strong> —
+            <span class="accent">maybe this is your sign.</span> ✦
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── SUNDAY SERVICE ─── -->
+<section id="sunday">
+  <div class="sunday-bg"></div>
+  <div class="sunday-inner">
+    <div class="section-label">Worship With Us</div>
+    <h2 class="section-title">SUNDAY<br><span class="highlight-orange">SERVICE</span></h2>
+    <p class="section-desc">
+      Come as you are. Every Sunday we gather to worship, learn, and grow together.
+      You belong here — no matter where you're at in life.
+    </p>
+
+    <div class="sunday-grid">
+      <div class="sunday-info-cards">
+        <div class="info-card">
+          <div class="info-card-icon" style="background:rgba(255,107,0,0.12); font-size:26px;">&#128197;</div>
+          <div>
+            <div class="info-card-label">When</div>
+            <div class="info-card-value">Every Sunday</div>
+            <div class="info-card-sub">Weekly gathering, every week</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon" style="background:rgba(0,200,204,0.12); font-size:26px;">&#128336;</div>
+          <div>
+            <div class="info-card-label">Time</div>
+            <div class="info-card-value">4:00 PM</div>
+            <div class="info-card-sub">Doors open at 3:30 PM</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon" style="background:rgba(168,255,62,0.12); font-size:26px;">&#128205;</div>
+          <div>
+            <div class="info-card-label">Where</div>
+            <div class="info-card-value">OnePM Building, 5th Floor</div>
+            <div class="info-card-sub">GBI SLCC · Gading Serpong</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon" style="background:rgba(255,61,154,0.12); font-size:26px;">&#128101;</div>
+          <div>
+            <div class="info-card-label">Who</div>
+            <div class="info-card-value">Everyone Welcome</div>
+            <div class="info-card-sub">Everyone who seeks a community</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sunday-map-panel">
+        <img src="assets/sunday-map.jpeg" alt="OnePM Building location map" />
+        <div class="sunday-map-overlay">
+          <div class="sunday-map-address">
+            <span class="pin-label">Find Us Here</span>
+            <span class="pin-name">OnePM Building, 5th Floor</span>
+            <span class="pin-sub">Gading Serpong · GBI SLCC</span>
+          </div>
+          <a href="https://linktr.ee/power.slcc" target="_blank" rel="noopener" class="btn-white">
+            Get Directions &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VALUES / GLEAM ─── -->
+<section id="values">
+  <div class="values-inner">
+
+    <div class="gleam-hero">
+      <div class="gleam-title-wrap">
+        <div class="section-label">Our Values</div>
+        <div class="gleam-headline">GLEAM</div>
+        <div class="gleam-sub">
+          <span>G</span>od-centered &nbsp;·&nbsp;
+          <span>L</span>oving &nbsp;·&nbsp;
+          <span>E</span>ngage &nbsp;·&nbsp;
+          <span>A</span>uthentic &nbsp;·&nbsp;
+          <span>M</span>aturity
+        </div>
+      </div>
+      <p class="section-desc" style="max-width:360px; text-align:right;">
+        Five words. One identity. This is who we are<br>and who we're becoming — together.
+      </p>
+    </div>
+
+    <div class="gleam-grid">
+
+      <!-- G — God-centered -->
+      <div class="gleam-card" data-letter="G" style="--gc: #FF6B00;">
+        <div class="gleam-letter">G</div>
+        <div class="gleam-word">God-Centered</div>
+        <div class="gleam-toggle" data-gleam="g" role="button" tabindex="0" aria-expanded="false"></div>
+        <div class="gleam-expand" id="gleam-g">
+          <div class="gleam-expand-inner">
+            <p>
+              Everything we do starts and ends with <strong>God first.</strong>
+              Our decisions, our direction, our community — all rooted in Him.
+              A God-centered life isn't just going to church;
+              it's <strong>carrying His presence into every room you walk into.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- L — Loving -->
+      <div class="gleam-card" data-letter="L" style="--gc: #FF3D9A;">
+        <div class="gleam-letter">L</div>
+        <div class="gleam-word">Loving</div>
+        <div class="gleam-toggle" data-gleam="l" role="button" tabindex="0" aria-expanded="false"></div>
+        <div class="gleam-expand" id="gleam-l">
+          <div class="gleam-expand-inner">
+            <p>
+              Love is not just a feeling — it's a <strong>daily choice.</strong>
+              We choose to love people the way Christ loves us:
+              unconditionally, sacrificially, and without judgment.
+              <strong>Everyone is welcome here,</strong> exactly as they are.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- E — Engage -->
+      <div class="gleam-card" data-letter="E" style="--gc: #00C8CC;">
+        <div class="gleam-letter">E</div>
+        <div class="gleam-word">Engage</div>
+        <div class="gleam-toggle" data-gleam="e" role="button" tabindex="0" aria-expanded="false"></div>
+        <div class="gleam-expand" id="gleam-e">
+          <div class="gleam-expand-inner">
+            <p>
+              Faith is not a spectator sport. We <strong>show up</strong> —
+              for real conversations, for events that build community,
+              for the world around us.
+              We engage because we believe <strong>every interaction matters</strong>
+              and every person deserves to be seen.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- A — Authentic -->
+      <div class="gleam-card" data-letter="A" style="--gc: #FFE600;">
+        <div class="gleam-letter">A</div>
+        <div class="gleam-word">Authentic</div>
+        <div class="gleam-toggle" data-gleam="a" role="button" tabindex="0" aria-expanded="false"></div>
+        <div class="gleam-expand" id="gleam-a">
+          <div class="gleam-expand-inner">
+            <p>
+              No masks. No performance. <strong>Just real.</strong>
+              We create space to be honest about our doubts,
+              our struggles, and our stories — because
+              <strong>authenticity is what allows true community to form.</strong>
+              You don't have to have it all together to belong here.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- M — Maturity -->
+      <div class="gleam-card" data-letter="M" style="--gc: #A8FF3E;">
+        <div class="gleam-letter">M</div>
+        <div class="gleam-word">Maturity</div>
+        <div class="gleam-toggle" data-gleam="m" role="button" tabindex="0" aria-expanded="false"></div>
+        <div class="gleam-expand" id="gleam-m">
+          <div class="gleam-expand-inner">
+            <p>
+              We are committed to <strong>growing</strong> — not just in knowledge,
+              but in character, wisdom, and our walk with God.
+              Maturity isn't a destination;
+              it's the <strong>daily decision to become more like Christ,</strong>
+              one step at a time, together.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALLERY ─── -->
+<section id="gallery">
+  <div class="gallery-section-bg"></div>
+  <div class="gallery-inner-wrap">
+    <div class="section-label">Moments</div>
+    <h2 class="section-title">LIFE AT<br><span class="highlight-orange">POWER ROOM</span></h2>
+
+    <div class="gallery-grid">
+
+      <!-- Large hero tile — Sunday Service -->
+      <div class="gallery-item large">
+        <div class="gallery-inner">
+          <img src="assets/gallery-sunday.jpeg" alt="Sunday Service" />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Sunday Service</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Powerroom -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <img src="assets/gallery-powerroom.jpeg" alt="Powerroom" />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Powerroom</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Worship -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <img src="assets/gallery-worship.jpeg" alt="Worship" />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Worship</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Community -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <img src="assets/gallery-community.jpeg" alt="Community" />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Community</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Events -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <img src="assets/gallery-events.jpeg" alt="Events" />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Events</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── VERSE ─── -->
+<section id="verse">
+  <div class="verse-bg"></div>
+  <div class="verse-inner">
+    <div class="verse-icon">"</div>
+    <div class="verse-text">
+      FOR I KNOW THE PLANS I HAVE FOR YOU,
+      PLANS TO PROSPER YOU AND NOT TO HARM YOU,
+      PLANS TO GIVE YOU HOPE AND A FUTURE.
+    </div>
+    <div class="verse-ref">Jeremiah 29:11</div>
+  </div>
+</section>
+
+<!-- ─── JOIN ─── -->
+<section id="join">
+  <div class="join-bg"></div>
+  <div class="join-inner">
+    <div class="section-label">Come &amp; See</div>
+    <h2 class="section-title">YOU<br><span class="highlight-orange">BELONG</span><br>HERE</h2>
+    <p class="section-desc">
+      Whether you're new to faith or have been walking with God for years —
+      Power Room is a place for you. Come find your people this Sunday.
+    </p>
+    <a href="https://linktr.ee/power.slcc" target="_blank" rel="noopener" class="btn-primary" style="font-size:16px;padding:16px 44px;">
+      Find Us This Sunday &rarr;
+    </a>
+
+    <div class="join-links">
+      <a href="https://instagram.com/power.slcc" target="_blank" rel="noopener" class="social-link">
+        <span class="s-icon">&#128247;</span>
+        <span>@power.slcc</span>
+      </a>
+      <a href="https://linktr.ee/power.slcc" target="_blank" rel="noopener" class="social-link">
+        <span class="s-icon">&#127760;</span>
+        <span>linktr.ee/power.slcc</span>
+      </a>
+      <a href="#sunday" class="social-link">
+        <span class="s-icon">&#128205;</span>
+        <span>OnePM Bldg, Gading Serpong</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-circle"><img src="assets/logo.jpeg" alt="Power Room" /></div>
+      <div class="footer-name">POWER ROOM</div>
+      <div class="footer-tagline">GBI SLCC Youth Community</div>
+    </div>
+
+    <div class="footer-links">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#sunday">Sunday Service</a></li>
+        <li><a href="#values">Values</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://instagram.com/power.slcc" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://linktr.ee/power.slcc" target="_blank" rel="noopener">Linktree</a></li>
+        <li><a href="https://instagram.com/gbi.slcc" target="_blank" rel="noopener">GBI SLCC</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Visit</h4>
+      <ul>
+        <li><a href="#sunday">Every Sunday</a></li>
+        <li><a href="#sunday">4:00 PM</a></li>
+        <li><a href="#sunday">OnePM Bldg, 5th Floor · Gading Serpong</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&#169; 2026 Power Room &mdash; GBI SLCC Youth Community. Made with <span class="heart">&#10084;</span></p>
+    <p>We love Jesus &amp; people.</p>
+  </div>
+</footer>
+
+<!-- ─── MOBILE NAV TOGGLE ─── -->
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  let open = false;
+  toggle.addEventListener('click', () => {
+    open = !open;
+    if (open) {
+      links.style.cssText = `
+        display:flex; flex-direction:column; position:fixed;
+        top:72px; left:0; right:0; background:rgba(10,10,10,0.97);
+        padding:28px 6%; gap:20px; border-bottom:1px solid rgba(255,107,0,.2);
+        backdrop-filter:blur(12px); z-index:99;
+      `;
+    } else {
+      links.style.cssText = 'display:none;';
+    }
+  });
+  // Close on link click (mobile)
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => { open = false; links.style.cssText='display:none;'; });
+  });
+
+  // ─── GLEAM card toggles ───
+  document.querySelectorAll('.gleam-toggle').forEach(btn => {
+    const key    = btn.dataset.gleam;
+    const panel  = document.getElementById('gleam-' + key);
+    const card   = btn.closest('.gleam-card');
+    btn.addEventListener('click', () => {
+      const isOpen = panel.classList.contains('open');
+      // close all others first
+      document.querySelectorAll('.gleam-expand.open').forEach(p => p.classList.remove('open'));
+      document.querySelectorAll('.gleam-toggle.open').forEach(b => {
+        b.classList.remove('open');
+        b.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        panel.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        // smooth scroll card into view
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+      }
+    });
+    btn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    });
+  });
+
+  // ─── Story panel toggle ───
+  const storyToggle = document.getElementById('storyToggle');
+  const storyPanel  = document.getElementById('storyPanel');
+  storyToggle.addEventListener('click', () => {
+    const isOpen = storyPanel.classList.contains('open');
+    storyPanel.classList.toggle('open');
+    storyToggle.classList.toggle('open');
+    storyToggle.setAttribute('aria-expanded', String(!isOpen));
+    storyPanel.setAttribute('aria-hidden', String(isOpen));
+    // update cue text
+    storyToggle.querySelector('.cue-sub').textContent = isOpen ? 'tap to open' : 'tap to close';
+  });
+  storyToggle.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); storyToggle.click(); }
+  });
+
+  // ─── Scroll-reveal for #theme section ───
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>

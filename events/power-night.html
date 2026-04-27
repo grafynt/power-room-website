@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power Night – Monthly Worship Night | Power Room GBI SLCC</title>
+  <meta name="description" content="Power Night adalah malam worship bulanan Power Room GBI SLCC Gading Serpong. Setiap Jumat terakhir pukul 19.00 di OnePM Building lantai 5." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Poppins',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
+    :root{--orange:#FF6B00;--dark:#0a0a0a;--dark2:#111111;--dark3:#1a1a1a}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:var(--dark)}
+    ::-webkit-scrollbar-thumb{background:var(--orange);border-radius:3px}
+
+    /* Back nav */
+    .back-nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      padding:16px 6%;
+      background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,107,0,0.15);
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .back-btn{
+      display:flex;align-items:center;gap:8px;
+      color:rgba(255,255,255,0.7);text-decoration:none;
+      font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+      transition:color .2s;
+    }
+    .back-btn:hover{color:var(--orange)}
+    .back-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .back-brand{
+      font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;
+      text-decoration:none;
+    }
+
+    /* Hero */
+    .event-hero{
+      min-height:70vh;display:flex;align-items:flex-end;
+      position:relative;overflow:hidden;padding:100px 6% 64px;
+    }
+    .event-hero-img{
+      position:absolute;inset:0;
+      background-image:url('../assets/gallery-worship.jpeg');
+      background-size:cover;background-position:center;
+    }
+    .event-hero-img::after{
+      content:'';position:absolute;inset:0;
+      background:
+        linear-gradient(to top,rgba(10,10,10,0.96) 0%,rgba(10,10,10,0.6) 50%,rgba(10,10,10,0.3) 100%),
+        linear-gradient(to right,rgba(10,10,10,0.5) 0%,transparent 60%);
+    }
+    .event-hero-content{position:relative;z-index:2;max-width:700px}
+    .event-tag-pill{
+      display:inline-block;
+      background:var(--orange);color:#fff;
+      font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      padding:5px 14px;border-radius:50px;margin-bottom:20px;
+    }
+    .event-hero-title{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(64px,12vw,120px);line-height:0.88;letter-spacing:3px;
+      margin-bottom:20px;
+    }
+    .event-hero-title span{color:var(--orange)}
+    .event-hero-meta{
+      display:flex;flex-wrap:wrap;gap:24px;
+      font-size:13px;color:rgba(255,255,255,0.55);
+    }
+    .event-hero-meta strong{color:#fff}
+
+    /* Body */
+    .event-body{max-width:720px;margin:0 auto;padding:80px 6%}
+    .event-body h2{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(32px,5vw,52px);letter-spacing:2px;
+      color:#fff;margin-bottom:16px;margin-top:48px;
+    }
+    .event-body h2:first-child{margin-top:0}
+    .event-body p{font-size:16px;line-height:1.85;color:rgba(255,255,255,0.65);margin-bottom:20px}
+    .event-body p strong{color:#fff}
+    .event-body ul{padding-left:20px;margin-bottom:20px}
+    .event-body ul li{font-size:15px;line-height:1.8;color:rgba(255,255,255,0.65);margin-bottom:8px}
+    .event-body ul li::marker{color:var(--orange)}
+
+    /* Info cards */
+    .event-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0}
+    .event-info-card{
+      padding:24px 20px;border-radius:16px;
+      background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+    }
+    .event-info-card .label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px}
+    .event-info-card .value{font-size:16px;font-weight:700;color:#fff}
+    .event-info-card .sub{font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px}
+
+    /* CTA */
+    .event-cta-box{
+      background:rgba(255,107,0,0.08);border:1px solid rgba(255,107,0,0.3);
+      border-radius:20px;padding:40px;text-align:center;margin-top:56px;
+    }
+    .event-cta-box h3{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;margin-bottom:12px}
+    .event-cta-box p{font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:28px}
+    .btn-primary{
+      background:var(--orange);color:#fff;
+      padding:14px 36px;border-radius:50px;
+      font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+      text-decoration:none;display:inline-block;
+      box-shadow:0 8px 30px rgba(255,107,0,0.4);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(255,107,0,0.55)}
+
+    /* Footer minimal */
+    .event-footer{
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding:32px 6%;text-align:center;
+      font-size:12px;color:rgba(255,255,255,0.25);
+    }
+    .event-footer a{color:var(--orange);text-decoration:none}
+
+    @media(max-width:640px){
+      .event-info-grid{grid-template-columns:1fr}
+      .event-body{padding:60px 5%}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="../index.html" class="back-btn">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Power Room
+  </a>
+  <a href="../index.html" class="back-brand">POWER ROOM</a>
+</nav>
+
+<div class="event-hero">
+  <div class="event-hero-img"></div>
+  <div class="event-hero-content">
+    <span class="event-tag-pill">Monthly Event</span>
+    <h1 class="event-hero-title">POWER<br><span>NIGHT</span></h1>
+    <div class="event-hero-meta">
+      <div>&#128197; <strong>Every Last Friday</strong></div>
+      <div>&#128336; <strong>7:00 PM</strong> — doors open 6:30</div>
+      <div>&#128205; <strong>OnePM Building, 5th Floor</strong> · Gading Serpong</div>
+    </div>
+  </div>
+</div>
+
+<div class="event-body">
+
+  <h2>Tentang Power Night</h2>
+  <p>
+    Power Night adalah malam worship bulanan Power Room — sebuah ruang khusus di luar ibadah Minggu biasa, di mana kita bisa <strong>lebih dalam, lebih lama, dan lebih fokus</strong> dalam hadirat Tuhan.
+  </p>
+  <p>
+    Tidak ada agenda yang terburu-buru. Tidak ada yang perlu dibuktikan. Hanya kamu, Tuhan, dan ratusan anak muda yang datang dengan hati yang sama.
+  </p>
+
+  <div class="event-info-grid">
+    <div class="event-info-card">
+      <div class="label">Kapan</div>
+      <div class="value">Jumat Terakhir</div>
+      <div class="sub">Setiap bulan</div>
+    </div>
+    <div class="event-info-card">
+      <div class="label">Jam</div>
+      <div class="value">19:00 WIB</div>
+      <div class="sub">Pintu buka 18:30</div>
+    </div>
+    <div class="event-info-card">
+      <div class="label">Tempat</div>
+      <div class="value">OnePM Bldg, Lt. 5</div>
+      <div class="sub">Gading Serpong · GBI SLCC</div>
+    </div>
+  </div>
+
+  <h2>Apa yang Bisa Kamu Harapkan</h2>
+  <ul>
+    <li>Sesi worship yang lebih panjang dan lebih dalam dari biasanya</li>
+    <li>Doa bersama dan ministry time yang dipimpin dengan penuh kasih</li>
+    <li>Suasana yang intim dan hangat — tidak formal, tidak kaku</li>
+    <li>Momen-momen yang akan kamu ingat lama setelah malam itu selesai</li>
+  </ul>
+
+  <h2>Untuk Siapa?</h2>
+  <p>
+    Power Night terbuka untuk <strong>semua orang</strong> — anggota Power Room, teman yang baru pertama kali datang, atau siapa saja yang ingin mengalami malam yang berbeda bersama Tuhan.
+    Bawa teman, bawa keluarga, bawa siapapun yang butuh bertemu Tuhan malam itu.
+  </p>
+  <p>
+    <strong>Gratis. Tidak perlu daftar.</strong> Cukup datang.
+  </p>
+
+  <div class="event-cta-box">
+    <h3>SAMPAI JUMPA DI SANA</h3>
+    <p>Pantau tanggal Power Night bulan ini di Instagram kami.</p>
+    <a href="https://instagram.com/power.slcc" target="_blank" rel="noopener" class="btn-primary">
+      Follow @power.slcc &rarr;
+    </a>
+  </div>
+
+</div>
+
+<div class="event-footer">
+  <p>&#169; 2026 Power Room &mdash; GBI SLCC Youth Community &nbsp;|&nbsp; <a href="../index.html">Kembali ke Beranda</a></p>
+</div>
+
+</body>
+</html>

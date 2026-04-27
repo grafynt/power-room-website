@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breakout Conference 2026 – Annual Youth Conference | Power Room GBI SLCC</title>
+  <meta name="description" content="Breakout Conference adalah konferensi pemuda tahunan Power Room GBI SLCC. Satu akhir pekan, ratusan pemuda, satu terobosan. Juni 2026." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Poppins',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
+    :root{--orange:#FF6B00;--yellow:#FFE600;--dark:#0a0a0a;--dark2:#111111;--dark3:#1a1a1a}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:var(--dark)}
+    ::-webkit-scrollbar-thumb{background:var(--orange);border-radius:3px}
+
+    .back-nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      padding:16px 6%;
+      background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,107,0,0.15);
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .back-btn{
+      display:flex;align-items:center;gap:8px;
+      color:rgba(255,255,255,0.7);text-decoration:none;
+      font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:color .2s;
+    }
+    .back-btn:hover{color:var(--orange)}
+    .back-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .back-brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;text-decoration:none}
+
+    .event-hero{
+      min-height:80vh;display:flex;align-items:flex-end;
+      position:relative;overflow:hidden;padding:100px 6% 64px;
+    }
+    .event-hero-img{
+      position:absolute;inset:0;
+      background-image:url('../assets/gallery-events.jpeg');
+      background-size:cover;background-position:center;
+    }
+    .event-hero-img::after{
+      content:'';position:absolute;inset:0;
+      background:
+        linear-gradient(to top,rgba(10,10,10,0.97) 0%,rgba(10,10,10,0.55) 50%,rgba(10,10,10,0.25) 100%),
+        linear-gradient(to right,rgba(10,10,10,0.5) 0%,transparent 60%);
+    }
+    .event-hero-content{position:relative;z-index:2;max-width:760px}
+    .event-tag-pill{
+      display:inline-block;background:var(--yellow);color:#000;
+      font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      padding:5px 14px;border-radius:50px;margin-bottom:20px;
+    }
+    .event-hero-title{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(52px,10vw,110px);line-height:0.88;letter-spacing:3px;margin-bottom:20px;
+    }
+    .event-hero-title span{color:var(--yellow)}
+    .event-hero-tagline{
+      font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,0.6);
+      max-width:520px;line-height:1.6;margin-bottom:24px;
+    }
+    .event-hero-tagline strong{color:#fff}
+    .event-hero-meta{display:flex;flex-wrap:wrap;gap:24px;font-size:13px;color:rgba(255,255,255,0.55)}
+    .event-hero-meta strong{color:#fff}
+
+    /* Countdown banner */
+    .countdown-banner{
+      background:rgba(255,230,0,0.08);border-top:1px solid rgba(255,230,0,0.2);border-bottom:1px solid rgba(255,230,0,0.2);
+      padding:20px 6%;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;
+      text-align:center;
+    }
+    .countdown-banner p{font-size:14px;font-weight:600;color:rgba(255,255,255,0.8)}
+    .countdown-banner .hl{color:var(--yellow)}
+    .save-date-pill{
+      background:var(--yellow);color:#000;
+      font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      padding:6px 16px;border-radius:50px;
+    }
+
+    .event-body{max-width:720px;margin:0 auto;padding:80px 6%}
+    .event-body h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:2px;color:#fff;margin-bottom:16px;margin-top:48px}
+    .event-body h2:first-child{margin-top:0}
+    .event-body p{font-size:16px;line-height:1.85;color:rgba(255,255,255,0.65);margin-bottom:20px}
+    .event-body p strong{color:#fff}
+    .event-body ul{padding-left:20px;margin-bottom:20px}
+    .event-body ul li{font-size:15px;line-height:1.8;color:rgba(255,255,255,0.65);margin-bottom:8px}
+    .event-body ul li::marker{color:var(--yellow)}
+
+    .event-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0}
+    .event-info-card{padding:24px 20px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)}
+    .event-info-card .label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px}
+    .event-info-card .value{font-size:16px;font-weight:700;color:#fff}
+    .event-info-card .sub{font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px}
+
+    /* Session timeline */
+    .session-timeline{margin:40px 0;display:flex;flex-direction:column;gap:0}
+    .session-item{
+      display:flex;gap:24px;padding:20px 0;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+    .session-item:last-child{border-bottom:none}
+    .session-day{
+      font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;
+      color:var(--yellow);min-width:80px;padding-top:2px;
+    }
+    .session-content{}
+    .session-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+    .session-desc{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6}
+
+    .event-cta-box{
+      background:rgba(255,230,0,0.06);border:1px solid rgba(255,230,0,0.25);
+      border-radius:20px;padding:40px;text-align:center;margin-top:56px;
+    }
+    .event-cta-box h3{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;margin-bottom:12px}
+    .event-cta-box p{font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:28px}
+    .btn-primary{
+      background:var(--orange);color:#fff;padding:14px 36px;border-radius:50px;
+      font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+      text-decoration:none;display:inline-block;
+      box-shadow:0 8px 30px rgba(255,107,0,0.4);transition:transform .2s,box-shadow .2s;
+    }
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(255,107,0,0.55)}
+
+    .event-footer{border-top:1px solid rgba(255,255,255,0.06);padding:32px 6%;text-align:center;font-size:12px;color:rgba(255,255,255,0.25)}
+    .event-footer a{color:var(--orange);text-decoration:none}
+
+    @media(max-width:640px){
+      .event-info-grid{grid-template-columns:1fr}
+      .event-body{padding:60px 5%}
+      .session-item{flex-direction:column;gap:8px}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="../index.html" class="back-btn">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Power Room
+  </a>
+  <a href="../index.html" class="back-brand">POWER ROOM</a>
+</nav>
+
+<div class="event-hero">
+  <div class="event-hero-img"></div>
+  <div class="event-hero-content">
+    <span class="event-tag-pill">Annual Conference</span>
+    <h1 class="event-hero-title">BREAKOUT<br><span>CONFERENCE</span></h1>
+    <p class="event-hero-tagline">
+      Satu akhir pekan. Ratusan pemuda. <strong>Satu terobosan.</strong>
+    </p>
+    <div class="event-hero-meta">
+      <div>&#128197; <strong>Juni 2026</strong></div>
+      <div>&#128205; <strong>Gading Serpong</strong> · Detail TBA</div>
+    </div>
+  </div>
+</div>
+
+<div class="countdown-banner">
+  <p>Breakout Conference 2026 &mdash; <span class="hl">Save the date!</span> Detail akan diumumkan segera.</p>
+  <span class="save-date-pill">Juni 2026</span>
+</div>
+
+<div class="event-body">
+
+  <h2>Tentang Breakout Conference</h2>
+  <p>
+    Breakout Conference adalah konferensi pemuda tahunan Power Room — momen paling besar dalam kalender komunitas kami. Selama satu akhir pekan penuh, ratusan anak muda dari Gading Serpong dan sekitarnya berkumpul untuk <strong>berjumpa Tuhan, bertumbuh bersama, dan mengalami terobosan.</strong>
+  </p>
+  <p>
+    Bukan konferensi biasa. Ini adalah pengalaman yang akan mengubah cara kamu melihat dirimu, hidupmu, dan Tuhanmu.
+  </p>
+
+  <div class="event-info-grid">
+    <div class="event-info-card">
+      <div class="label">Tanggal</div>
+      <div class="value">Juni 2026</div>
+      <div class="sub">Tanggal pasti TBA</div>
+    </div>
+    <div class="event-info-card">
+      <div class="label">Durasi</div>
+      <div class="value">1 Akhir Pekan</div>
+      <div class="sub">Sabtu & Minggu</div>
+    </div>
+    <div class="event-info-card">
+      <div class="label">Lokasi</div>
+      <div class="value">Gading Serpong</div>
+      <div class="sub">Venue TBA</div>
+    </div>
+  </div>
+
+  <h2>Yang Bisa Kamu Harapkan</h2>
+  <ul>
+    <li>Sesi utama dengan pembicara yang diurapi dan berpengalaman</li>
+    <li>Breakout sessions sesuai minat: leadership, identity, relationships, faith &amp; work</li>
+    <li>Worship yang powerful dan penuh dengan hadirat Tuhan</li>
+    <li>Ministry time dan doa yang mengubah hidup</li>
+    <li>Networking dengan ratusan pemuda satu komunitas</li>
+    <li>Night event yang tidak akan terlupakan</li>
+  </ul>
+
+  <h2>Rundown (Tentative)</h2>
+  <div class="session-timeline">
+    <div class="session-item">
+      <div class="session-day">SAB PAGI</div>
+      <div class="session-content">
+        <div class="session-title">Opening &amp; Sesi 1</div>
+        <div class="session-desc">Pembukaan resmi Breakout Conference 2026. Sesi utama pertama bersama pembicara tamu.</div>
+      </div>
+    </div>
+    <div class="session-item">
+      <div class="session-day">SAB SIANG</div>
+      <div class="session-content">
+        <div class="session-title">Breakout Sessions</div>
+        <div class="session-desc">Pilih jalurmu: Leadership, Identity, Relationships, Faith &amp; Work. Sesi kecil yang dalam dan aplikatif.</div>
+      </div>
+    </div>
+    <div class="session-item">
+      <div class="session-day">SAB MALAM</div>
+      <div class="session-content">
+        <div class="session-title">Sesi 2 + Night Worship</div>
+        <div class="session-desc">Sesi malam yang intim dan penuh hadirat. Biasanya jadi momen yang paling tidak terlupakan.</div>
+      </div>
+    </div>
+    <div class="session-item">
+      <div class="session-day">MIN PAGI</div>
+      <div class="session-content">
+        <div class="session-title">Sesi Penutup + Pengutusan</div>
+        <div class="session-desc">Sesi terakhir yang mengutus kita kembali ke kehidupan sehari-hari sebagai agen perubahan.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Untuk Siapa?</h2>
+  <p>
+    Breakout Conference terbuka untuk semua anak muda usia 17–30 tahun. Kamu tidak harus sudah jadi anggota Power Room untuk hadir. <strong>Bawa temanmu, bawa pasanganmu, bawa siapapun yang butuh terobosan dalam hidupnya.</strong>
+  </p>
+
+  <div class="event-cta-box">
+    <h3>DAFTAR SEKARANG</h3>
+    <p>Kuota terbatas. Pantau pengumuman pendaftaran di Instagram kami.</p>
+    <a href="https://instagram.com/power.slcc" target="_blank" rel="noopener" class="btn-primary">
+      Follow @power.slcc untuk Info Daftar &rarr;
+    </a>
+  </div>
+
+</div>
+
+<div class="event-footer">
+  <p>&#169; 2026 Power Room &mdash; GBI SLCC Youth Community &nbsp;|&nbsp; <a href="../index.html">Kembali ke Beranda</a></p>
+</div>
+
+</body>
+</html>
